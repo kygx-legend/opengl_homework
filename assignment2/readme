@@ -1,0 +1,14 @@
+## assignment 1 for CG
+
+by Li Guanxian 10389043 at cas10.
+
+This is the program extended the example. That is my own using framework for opengl at linux.
+All draw functions are used to draw different base graphics by different parameters.
+
+Notes:
+	* using lib of "freeglut". You can change it to what you want like "glut".
+	* myDisplay() Function just means the initial clearing operation.
+	* All I want to draw are the function named my*().
+
+Using:
+	g++ example.cpp -lglut

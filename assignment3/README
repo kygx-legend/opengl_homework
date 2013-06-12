@@ -1,0 +1,16 @@
+## Assignment 3 of Computer Graphics
+## Author: Legend Lee (李冠贤,10389043)
+
+environment:
+
+    Ubuntu 12.04. include "freeglut.h". 
+
+task explanation:
+
+    My model: a robot named suzaku, which has one head, two shoulders, two elbows and two legs exactly.
+    My motion: only to move head, shoulder, elbow and leg inside some degrees.
+    My viewer: You can use keyboard 'r' to start motion. 'R' to stop. And 'a' and 'd' are to change the view on the level plane O-zy. Use mouse wheel to move for zoom in or zoom out.
+
+Here is a video to play! It's more convenient to see if you are not running ./a.out normally.
+
+out.flv

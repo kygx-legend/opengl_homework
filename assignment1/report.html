@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>计算机图形学assignment1总结报告</title>
+<style type="text/css">
+.body       { width: 940px; margin: auto; }
+.title      { color: #333; }
+.info       { font-size: 12pt; color: #5a5a5a; border-bottom: 2px solid; }
+.center     { text-align: center; }
+.subtitle   { text-align: center; font-size: 18pt; color: #d14; border-bottom: 2px solid #d14; }
+.keyword    { font-size: 12pt; color: #08c; }
+</style>
+</head>
+
+<body>
+<div class="body">
+<h2 class="center title">曲面、微分几何中的一些算法</h2>
+<h3 class="center title">Some Algorithms in Surfaces and Differential Geometry</h2>
+<h3 class="center title">计算机图形学assignment1总结报告</h3>
+<div class="part1">
+    <p class="center info"> 
+    姓名：李冠贤
+    学号：10389043    　
+    班级：10计应
+    </p>
+</div>
+<div class="part2">
+    <h5 class="subtitle"> [介绍-Introduction] </h5>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计算机图形学的发展包括很多方面的内容，但都不离于对实体对象的可视化与模拟。由于在接触机器人的时候发现，假如在测试一个算法或者是任务的程序的时候，经常要实时实体地去看结果，这对于项目的开发来说，无疑是增大了测试时间上的开销，同时也要确保实体对象能完成测试。为此，能模拟一个实体机器人，由这个虚拟的机器人来运行测试程序的话，相对来说比较迅速，检查起来比较方便，另外，还可以保障出错时不会损害真实的机器人，节省了损坏的花费。由于效果与模拟的吻合程度成正相关，这就需要计算机图形学领域中的可视化与模拟方面的技术。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过在可视化与模拟方面也有很多的分支，其中一个算得上比较基础的就是构造模型，当中利用到的主要技术也就是利用曲面与微分几何，从而是造型更为真实、丰富、饱满。所以这里讨论的基本上是对于曲面（surfaces）和微分几何（differential geometry）有关方面的算法。阅读的论文主要是曲面的加权平均、离散曲面的琐细拼接、离散曲面的旋转变换、适形曲率流，还有3D多尺度可视化以及人体建模和模拟。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;曲面造型技术源于飞机、船舶、汽车等的外形放样工艺，是计算机图形学和计算机辅助几何设计的一项重要内容，主要研究在计算机图像系统的环境下对曲面的表示、设计、显示和分析。从当初的工艺到现在的严谨的数学理论下走了三十多年，已经行成了以Bezier和B样条方法为代表的参数化特征设计和隐式代数曲面表示这两类方法为主体，以插值、拟合、逼近这三种手段为骨架的几何理论体系，尤其是近几年来，曲面造型得到了长足的发展，更有较为新颖的算法方法提出。在制造业、工程设计、电子电路设计，还有仿真模拟和动画电影效果制作等等方面的应用，都离不开这个给人们带来美观、实用的技术。</p>
+    <p>相关概念与定义：</p>
+    <p>--模拟：模拟是对真实事物或者过程的虚拟。模拟要表现出选定的物理系统或抽象系统的关键特性。模拟的关键问题包括有效信息的获取、关键特性和表现的选定、近似简化和假设的应用，以及模拟的重现度和有效性。可以认为仿真是一种重现系统外在表现的特殊的模拟。这里说的模拟指计算机上对真实世界的模拟。</p>
+    <p>--微分几何：微分几何是运用微积分的理论研究空间的几何性质的数学分支学科。古典微分几何研究三维空间中的曲线和曲面，而现代微分几何开始研究更一般的空间--流形。</p>
+    <p>--曲面：在数学（拓扑学）中，一个曲面（surface）是一个二维流形，是一条动线，在给定的条件下，在空间连续运动的轨迹。</p>
+    <p>--曲率：曲线的曲率，是针对曲线上某个点的切线方向角对弧长的转动率，通过微分来定义，表明曲线偏离直线的程度。数学上表明曲线在某一点的弯曲程度的数值。曲率越大，表示曲线的弯曲程度越大。曲率的倒数就是曲率半径。</p>
+    <p>--流形：流形是局部具有欧几里得空间性质的空间，是欧几里得空间中的曲线、曲面等概念的推广。流形可以视为近看起来象欧几里得空间或其他相对简单的空间的物体。</p>
+    <p>--曲面造型：包含曲面表示、曲面求交、曲面拼接、曲面变形、曲面重建、曲面简化、曲面位差、曲面转换等的研究技术。</p>
+    <p>--旋转变换：简称旋转。欧氏几何中的一种重要变换.即在欧氏平面上(欧氏空间中)，让每一点P绕一固定点(固定轴线)旋转一个定角，变成另一点P′，如此产生的变换称为平面上(空间中)的旋转变换。此固定点(固定直线)称为旋转中心(旋转轴)，该定角称为旋转角。旋转是第一种正交变换。</p>
+    <p>--离散曲面：一种新型的由连续函数所描述的离散型的曲面。</p>
+    <p>--琐细拼接：在跨界方向达到各阶导数连续所需满足的条件在离散曲面上进行拼接，使离散曲面变得更加光滑。</p>
+    <p>--加权平均：曲面拟合中最为理想的一种算法。</p>
+</div>
+<div class="part3">
+    <h5 class="subtitle"> [正文-Main part] </h5>
+    <h3>曲线、曲面、微分几何在计算机图形学的背景与发展</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;早在1950年，第一台图形显示器作为美国麻省理工学院（MIT）旋风I号（Whirlwind I）计算机的附件诞生了。该显示器用一个类似示波器的阴极射线管（CRT）来显示一些简单的图形，之后图形学得到陆续的发展，虽然被称为"被动式"的图形学，但正在那时在酝酿与准备当中。最早开始使用曲线曲面的大概就是60到70年代的从事于汽车、飞机设计的研究人员，提出了很多关于曲线曲面的构造方法。后来在1964年，MIT的教授Steven A. Coons提出了被后人称为超限插值的新思想，通过插值四条任意的边界曲线来构造曲面。同在60年代早期，法国雷诺汽车公司的工程师Pierre Bézier发展了一套被后人称为Bezier曲线、曲面的理论，成功地用于几何外形设计，并开发了用于汽车外形设计的UNISURF系统。另外同样著名的还有美国波音公司的Ferguson提出的用于飞机设计的参数三次方程。Coons方法和Bezier方法是CAGD最早的开创性工作。早期的曲线曲面设计方法计算效率不高，局部可修改性不好，70年代出现了B样条曲线曲面。均匀B样条曲线曲面计算效率高、局部可修改、绘图过程几何意义明确，但未考虑型值点的分布对参数化的影响，后来又Riesenfeld等人研究了非均匀B样条曲线曲面，知道80年代末、90年代初，由Piegl和Tiller等人对有理B样条曲线曲面进行了深入的研究，并行成了非均匀有理B样条曲线曲面的理论。目前大多数CAD软件中均采用NURBS曲线曲面建立几何模型，也成为标准计算机图形包的一部分，包括OpenGL图形库。随着近年来的发展，虽然大体上还是使用比较传统的几何理论，不过亦有不断改善、不断优化的方法提出。如下述为例。</p>
+    <h3>主要阅读的论文</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主要看了近期的与曲线、曲面、微分几何相关的算法和技术，当然也离不开学习构型的目的。</p>
+    <ul>
+        <li>
+            <h4>离散曲面的旋转变换</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"spin transformation of discrete surfaces"[引用1]中介绍了一种计算在R3中三角网格等角变换的新型方法。传统离散化考虑到复杂平面的映射，这种方法只适合于一些带参数的平面及平面变形的问题，而且这种平面是平坦的。而现在这种离散化引入了四元的Dirac算子，在一个能简单被构建的稀疏线性系统中，通过操控曲率和边界数据，有效地编辑曲面。引入了旋转变换（spin transformation）的操作，通过这种操作，一个模型可以被更深入地修改，修改的过程不用关联到纹理或几何细节。这种方法还能保证构型的质量，使模型更加平滑和精确。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整个算法基本流程是：1）对模型选择一个缩放因子。2）对一个相似变换的值去解决特征值问题。3）求出一个相似性变换的线性系统的解，作为新的曲面。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旋转变换的离散可积条件提供了一个规律有效的方法去构建三角网格的等角变换，需要很小的额外计算开销，另外，这个离散的Dirac计算因子还可以应用在很多等角映射之中。</p>
+        </li>
+        <li>
+            <h4>离散曲面的细微拼接</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"trivial connections on discrete surfaces"[引用2]中提出了一种简单直接的算法，使在离散曲面上拼接得尽可能平滑，并且是处处平滑。不过，需要在孤立的奇异点上给定一组索引，计算这些拼接，是通过标准操作求解一个已建立的线性系统。这个解决方案可以被用来设计旋转对称区域，需要利用用户设定好的奇异点以及方向的条件限制。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很多计算机图形学的应用都需要比较一个曲面上不同点的切线方向，那么在一个面到另一个面的过程中，我们希望能让上面的点的向量能保持一致，这样才能使离散面之间拼接完善，看上去更加光滑。这一个求解过程得到的就称为连接（connection）。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整个算法基本流程是：1）找到一个含有很多基圆的集合。2）对每一个基圆计算缺角。3）指出奇异点和他们的指数。4）计算出调整角后的线性方程组。</p>
+        </li>
+        <li>
+            <h4>适形曲率流形的鲁棒性</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"robust fairing via conformal curvature flow"[引用3]中提出了Willmore flow的公式，还提出了一种新的在平面曲线中保长的算法。在最基本的层面上，通过减少fairing energy，曲率流可以成功产生更近似平滑的几何面片。很多种计算曲率流都会遇到过两个主要的问题：1）严重的时间步长限制。2）网格元素的退化。使用均值半密度曲率，基于能量的曲率使到更容易最小化计算。</p>
+        </li>
+        <li>
+            <h4>加权平均在曲面的应用</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"weighted averages on surfaces"[引用4]中考虑的是在欧几里得空间中对三角网格进行放射变换的问题，就是对曲面上所有点计算加权的均值。对给定点权重的计算均值称为顺向问题，而从目标点中计算出权重则称为逆向问题。这里给出的算法在短时间内能得到一个顺向或逆向的问题的解。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主要技术贡献：1）发展了Phong投影在高维的应用。2）提出新的广义重心坐标。3）提出了高效的解决顺向问题的算法。</p>
+        </li>
+        <li>
+            <h4>3D多标准参考可视化</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"multiscale 3D reference visualization"[引用5]里很详细地提出了两种有效帮助小物件构型的方法。参考网格广泛地用在设计相关的软件上，帮助用户计算距离和理解在虚拟空间的方向。这里提出了两种新技术：一个是多尺度多标准的参考网格，另一个是位置夹子。前者对基于计算闭包测量来一致性细分和聚合网格线，能保证不会太多的细分冗余，而后者则拓展了网格，那么在地面平面上的对象可以被带进一个共同的参考环境帧中，而不用去干扰网格或对象本身的数据。</p>
+        </li>
+        <li>
+            <h4>全面生物学类模型与模拟</h4>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"comprehensive biomechanical modeling and simulation of the upper body"[引用6]介绍了模拟人体上半身的完全生物学的模型，所遇到的最大挑战是建立相关的人体骨骼和肌肉的模型以及控制，当中的基于物理的软体组织也是一个很严峻的问题。要模拟生物学逼真的肉体，利用了耦合性有限元素模型，采用适当的构造行为，使其嵌入了详细的3D硬软组织的解剖几何。最后，开发了一个基于物理的动画控制器，去计算必要的驱动信号，肌肉骨骼系统按照指定的一个动画序列使其执行目标姿势的运动。其结果相当逼真。</p>
+        </li>
+    </ul>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上阅读的基本上都与曲面相关，感觉上现在的研究不再局限于传统的那一套造型方法，而是另辟蹊径，着重于实际用途当中得到的细节方面的内容。与NURBS在计算辅助设计CAD类软件中应用广泛的情况相反，其实很多技术的应用面比较窄，主要是在研究时把问题限制得比较窄，当然，就拿3D参考网格作例子，它提出的方法很好地解决了构造小模型构件的问题，实际中，我们想弄一个像机器人这样由小零件构成的物体，我们没有办法一开始就画一个整体出来，但我们可以分开很多个小零件，最后拼合起来，现在看起来这种方法很好，可是只适用于这种场合，假如换到最后那篇论文中的场景，模拟生物方面的像肌肉的组织，那又是另外的一个问题了。即使是曲面，也是分为很多种场合，现在的研究也是如此，各式各样的模拟问题，于是引发了各种的不同的解决方法。这应该就是目前的这方面的发展方向。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至于关于曲面、微分几何未来的发展会是如何的问题，或者可以这样理解，合久会分，分久也会合，相信在不久的将来，当各方面的细节问题被充分解决的时候，可能会发掘到一些共同的方法，从而将现在分得比较散的研究聚合起来，例如曲面平滑方面，可能会有某种特别的方法，可以拥有集合的优点，继承了各种的方法，从而取代了其他方法，最后流形于外。提及到曲面，就肯定想到造型。人类的无穷想象和世界的无穷领域，肯定不会止于一时的发展研究，定会有更多更新奇、更美观、更为拟合的方面的东西出现，统一于虚拟现实当中。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</div>
+<div class="part4">
+    <h5 class="subtitle"> [总结-Conclusion] </h5>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前来说，电影动画游戏等虚拟产业和工程设计产业对造型这方面的要求都比较高，虽然说在理论上，Bezier曲线曲面、B样条曲线曲面乃至NURBS都在一定程度上满足了基本要求，不过始终显得这个是一个顺向的问题，就是从想象中构型，但对于实际中从现实物体到虚拟构型的问题好像比较难应用，所以曲线、曲面、微分几何这个方面的领域依然是计算机图形学有待更深入发展的领域，加之以工业、娱乐业为基础，有更庞大的应用前景。另外，还可以给人们带来视觉上的新享受。不过，在之前的论文中也留意到，很多关于曲面的算法，其好坏也都比较依赖于时间上的复杂度，那么在这方面可以知道，曲面的问题依旧是比较难解决的问题，还有待之后更深入的发展了。</p>
+</div>
+<div class="part5">
+    <h5 class="subtitle"> [引用-Reference] </h5>
+    <ul>
+        <li><a href="http://users.cms.caltech.edu/~keenan/pdf/spinxform.pdf">[引用1]http://users.cms.caltech.edu/~keenan/pdf/spinxform.pdf</a></li>
+        <li><a href="http://users.cms.caltech.edu/~keenan/pdf/connections.pdf">[引用2]http://users.cms.caltech.edu/~keenan/pdf/connections.pdf</a></li>
+        <li><a href="http://users.cms.caltech.edu/~keenan/pdf/ConformalWillmoreFlow.pdf">[引用3]http://users.cms.caltech.edu/~keenan/pdf/ConformalWillmoreFlow.pdf</a></li>
+        <li><a href="http://igl.ethz.ch/projects/wa/weighted-averages-siggraph-2013-panozzo-et-al.pdf">[引用4]http://igl.ethz.ch/projects/wa/weighted-averages-siggraph-2013-panozzo-et-al.pdf</a></li>
+        <li><a href="http://users.cms.caltech.edu/~keenan/m3drv.pdf">[引用5]http://users.cms.caltech.edu/~keenan/m3drv.pdf</a></li>
+        <li><a href="http://delivery.acm.org/10.1145/1560000/1559756/a99-lee.pdf?ip=121.33.190.167&acc=ACTIVE%20SERVICE&key=C2716FEBFA981EF120E0922F9AC86E5AB5C004524E72A92E&CFID=334422819&CFTOKEN=18086128&__acm__=1370223862_eff8cdf84af9ccf4a16aea7ade8a17c4">[引用6]http://delivery.acm.org/10.1145/1560000/1559756/a99-lee.pdf?ip=121.33.190.167&acc=ACTIVE%20SERVICE&key=C2716FEBFA981EF120E0922F9AC86E5AB5C004524E72A92E&CFID=334422819&CFTOKEN=18086128&__acm__=1370223862_eff8cdf84af9ccf4a16aea7ade8a17c4</a></li>
+        <li><a href="">[引用7]相关概念：百度百科http://baike.baidu.com/</a></li>
+        <li><a href="">[引用8]相关概念：维基百科http://zh.wikipedia.org/</a></li>
+    </ul>
+    <p>共5950字</p>
+</div>
+</div>
+</body>
+</html>
